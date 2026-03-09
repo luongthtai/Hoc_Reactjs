@@ -1,8 +1,10 @@
-import { useState } from 'react';
 import './App.css';
 
-import StarItem from './components/StarItem';
-import CardItem from './components/CardItem';
+import ProductList from './components/ProductList';
+
+import './components/CategoryItem.css';
+import ProductListCss from './components/ProductList.module.css';
+import { useEffect } from 'react';
 
 // Props và State
 // Hook -> useState()
@@ -49,6 +51,34 @@ const categories = [
   {
     url: "",
     title: "Dien thoai & phu kien"
+  },
+]
+
+const data = [
+  {
+    id: 1,
+    name: "Thời Trang Nam",
+    url: "https://down-vn.img.susercontent.com/file/687f3967b7c2fe6a134a2c11894eea4b@resize_w320_nl.webp"
+  },
+  {
+    id: 2,
+    name: "Điện Thoại & Phụ Kiện",
+    url: "https://down-vn.img.susercontent.com/file/31234a27876fb89cd522d7e3db1ba5ca@resize_w320_nl.webp"
+  },
+  {
+    id: 3,
+    name: "Thiết Bị Điện Tử",
+    url: "https://down-vn.img.susercontent.com/file/978b9e4cb61c611aaaf58664fae133c5@resize_w320_nl.webp"
+  },
+  {
+    id: 4,
+    name: "Máy Tính & Laptop",
+    url: "https://down-vn.img.susercontent.com/file/c3f3edfaa9f6dafc425b77d8449999d@resize_w320_nl.webp"
+  },
+  {
+    id: 5,
+    name: "Máy Ảnh & Máy Quay Phim",
+    url: "https://down-vn.img.susercontent.com/file/ec14dd4fc238e676e43be2a911414d4d@resize_w320_nl.webp"
   },
 ]
 
@@ -100,20 +130,27 @@ function App() {
   //   return <p>Loading...</p>
   // }
 
-  const [isLoading, setIsLoading] = useState(false)
-  const [isSubmit, setIsSubmit] = useState(false)
+  // const [isLoading, setIsLoading] = useState(false)
+  // const [isSubmit, setIsSubmit] = useState(false)
 
-  const handleSubmit = () => {
-    setIsLoading(true)
-    setTimeout(() => {
-      setIsSubmit(true)
-      setIsLoading(false)
-    }, 5000)
-  }
+  // const handleSubmit = () => {
+  //   setIsLoading(true)
+  //   setTimeout(() => {
+  //     setIsSubmit(true)
+  //     setIsLoading(false)
+  //   }, 5000)
+  // }
 
-  if (isLoading) {
-    return <p>Loading...</p>
-  }
+  // if (isLoading) {
+  //   return <p>Loading...</p>
+  // }
+
+  useEffect(() => {
+
+    return () => {
+      console.log("App clear")
+    }
+  }, [])
 
   return (
     <div>
@@ -143,20 +180,24 @@ function App() {
         {currentTab === 3 && "Nội dung của Bảo hành"}
       </div> */}
 
-      <div>
+      {/* <div> */}
+      {/* </div> */}
 
-        {/* <StarItem starNumber={1} currentStar={currentStar} handleClick={handleClick} />
+      {/* <StarItem starNumber={1} currentStar={currentStar} handleClick={handleClick} />
         <StarItem starNumber={2} currentStar={currentStar} handleClick={handleClick} />
         <StarItem starNumber={3} currentStar={currentStar} handleClick={handleClick} />
         <StarItem starNumber={4} currentStar={currentStar} handleClick={handleClick} />
         <StarItem starNumber={5} currentStar={currentStar} handleClick={handleClick} /> */}
 
-        {
-          // Array.from({ length: tabs }).map((_, index) => <StarItem key={index} starNumber={index + 1} currentStar={currentStar} handleClick={handleClick} />)
-        }
+      {
+        // Array.from({ length: tabs }).map((_, index) => <StarItem key={index} starNumber={index + 1} currentStar={currentStar} handleClick={handleClick} />)
+      }
 
-        {/* <button onClick={handleSubmit}>Gửi</button>
+      {/* <button onClick={handleSubmit}>Gửi</button>
         {isSubmit && <p>Đã gửi thành công</p>} */}
+
+      {/* <img src='https://down-vn.img.susercontent.com/file/ec14dd4fc238e676e43be2a911414d4d@resize_w320_nl.webp' />
+
         <div style={{ display: "flex", gap: "20px" }}>
           {
             students.length === 0
@@ -165,7 +206,15 @@ function App() {
               :
               students.map((item, index) => <CardItem name={item.name} age={item.age} />)
           }
-        </div>
+        </div> */}
+
+      <h3 className={ProductListCss.h3}>Danh mục</h3>
+
+      <div style={ProductListCss}>
+        {
+          data.length === 0 ? <p>Không có dữ liệu</p> :
+            data.map((item, index) => <ProductList name={item.name} url={item.url} />)
+        }
       </div>
     </div>
   )
