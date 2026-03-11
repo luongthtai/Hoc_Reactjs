@@ -49,7 +49,7 @@ import App from "./App"
         return () => {
             code    
         }
-    }, dependency)
+    }, dependency:[])
  */
 
 export default function App1() {
@@ -69,19 +69,19 @@ export default function App1() {
     //         {/* {count >= 1 || <App />} */}
     //     </div>
     // )
+
+    // axios
+
     const [data, setData] = useState([])
     const [error, setError] = useState(false)
     const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
-        try {
-            fetch("https://api.thecatapi.com/v1/images/search?limit=10")
-                .then(res => res.json())
-                .then(cats => setData(cats))
-                .finally(() => setIsLoading(false))
-        } catch (error) {
-            setError(error)
-        }
+        fetch("https://api.thecatapi.com/v1/images/search?limit=10")
+            .then(res => res.json())
+            .then(cats => setData(cats))
+            .catch(error => setError(error.message))
+            .finally(() => setIsLoading(false))
     }, [])
 
     if (error) return <p>{error}</p>
