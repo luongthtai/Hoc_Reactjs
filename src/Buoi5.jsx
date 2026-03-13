@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 // const [count, setCount] = useState(0)
 
 // const hanldeClick = () => {
@@ -33,14 +33,16 @@ export default function Buoi5() {
     const [dataForm, setDataForm] = useState({
         username: "",
         password: "",
-        age: 0
+        age: 0,
+        confirmPassword: ""
     })
 
     // Lưu trữ tất cả error
     const [dataError, setDataError] = useState({
         username: "",
         password: "",
-        age: ""
+        age: "",
+        confirmPassword: ""
     })
 
     // xử lý lúc user nhập dữ liệu
@@ -49,7 +51,7 @@ export default function Buoi5() {
 
         setDataForm({
             ...dataForm,
-            [name]: value
+            [name]: value.trim()
         })
     }
 
@@ -60,17 +62,22 @@ export default function Buoi5() {
         let errors = {
             username: "",
             password: "",
-            age: ""
+            age: "",
+            confirmPassword: ""
         }
 
         errors = {
             username: dataForm.username.length ? "" : "Bắt buộc",
             password: dataForm.password.length ? "" : "Bắt buộc",
+            confirmPassword: dataForm.confirmPassword.length ? "" : "Bắt buộc",
             age: dataForm.age.length ? "" : "Bắt buộc",
         }
 
         // Check password
         if (dataForm.password !== "" && dataForm.password.length < 8) errors = { ...errors, password: "Password phải có ít nhất 8 kí tự !!!" }
+
+        // check confirm pass
+        if ((dataForm.confirmPassword !== "") && (dataForm.confirmPassword != dataForm.password)) errors = { ...errors, confirmPassword: "Confirm password không trùng với password" }
 
         // Check number bằng cách ép kiểu 
         if ((Number(dataForm.age)).toString() === "NaN") errors = { ...errors, age: "Age phải là số" }
@@ -79,7 +86,7 @@ export default function Buoi5() {
         setDataError(errors)
 
         // Các trường trong errors phải rỗng thì mới console.log
-        if (!errors.age && !errors.password && !errors.username) console.log(dataForm)
+        if (!errors.age && !errors.password && !errors.username && !errors.confirmPassword) console.log(dataForm)
     }
 
     return (
@@ -94,6 +101,12 @@ export default function Buoi5() {
                 <label>Password</label>
                 <input type="password" name="password" onChange={handleChange} />
                 {dataError.password && <p style={{ color: "red" }}>{dataError.password}</p>}
+            </div>
+
+            <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+                <label>Confirm Password</label>
+                <input type="password" name="confirmPassword" onChange={handleChange} />
+                {dataError.confirmPassword && <p style={{ color: "red" }}>{dataError.confirmPassword}</p>}
             </div>
 
             <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
