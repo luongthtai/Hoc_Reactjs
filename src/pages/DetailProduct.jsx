@@ -3,13 +3,11 @@
 
 // axios
 
-import { useEffect, useState } from "react"
-import { Link, useParams } from "react-router-dom"
+import { useEffect } from "react"
+import { Link, Outlet, useParams } from "react-router-dom"
 
 export default function DetailProduct() {
     const { id } = useParams()
-
-    const [data, setData] = useState([])
 
     useEffect(() => {
         // const fetchApi = async (id) => {
@@ -28,6 +26,7 @@ export default function DetailProduct() {
         <>
             <div>DetailProduct {id}</div>
             <Link to="/products/20">20</Link>
+            <Outlet />
         </>
     )
 }
