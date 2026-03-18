@@ -29,10 +29,11 @@ export default function Buoi8() {
     // const { count, setCount } = counts
 
     // console.log(count)
+
     return (
-        <CountProvider>
+        <>
             <TestFunc />
-        </CountProvider>
+        </>
     )
 }
 
