@@ -1,38 +1,66 @@
-// Lib: Redux
-
+// re-render = React chạy lại function component
 /**
-    Redux nó là 1 công cụ uản lý state toàn ứng dụng, 
-    - (useReducer + useContext) -> redux mạnh hơn và chuẩn hơn
+    - state thay đổi
+    - props thay đổi
+    - component cha re-render
 
-    useState -> state nhỏ ( chỉ dùng trong 1 component )
-    useReducer -> state phức tạp ( chỉ dùng trong 1 component )
-    useContext -> chia sẻ state
+    Child khoong thay đổi gì vẫn bị re-render -> tốn hiệu năng
 
-    Redux -> quản lý state toàn app (chuẩn production)
+    // Tối ưu hiệu năng trang
+    - React.memo -> so sánh props cũ và props mới
+        props cũ !== props mới => re-render
+    - useCallback -> giữ nguyên function cũ
+        2 tham số:
+            - callback function
+            - dependency -> 
+    - useMemo -> ghi nhows (cache) kết qủa của 1 phép tính
+        - deps không thay đổi -> dùng lại kết quả cũ
+        - deps thay đổi -> tính toán lại phép tính
+ */
 
-    Provider hell
-
-    Redux có 3 thành phần chính:
-        - Store (kho dữ liệu) -> kho hàng
-        - Action (yêu cầu)    -> đơn yêu cầu
-        - Reducer (xử lý)     -> nhân viên xử lý
-
-    slice = reducer + action
-
-    Flow Redux
-    user -> hành động
-    |
-    dipatch(action)
-    |
-    reducer xử lý
-    |
-    state mới lưu vào store
-    |
-    UI cập nhập
-*/
+import React, { useCallback, useMemo, useState } from "react"
 
 export default function Buoi11() {
+    const [count, setCount] = useState(0)
+
+    const handleCount = useCallback(() => {
+        setCount(count + 1) // count = 0
+    }, [])
+
+    // const handleCount = () => {
+    //     setCount(count + 1) // count = 0
+    // }
+
     return (
-        <div>Buoi11</div>
+        <div style={{ marginLeft: "50px" }}>
+            <span>{count}</span>
+            <ChildComponent count={count} />
+
+            <button onClick={handleCount}>Buoi 11 Click</button>
+        </div>
     )
 }
+
+
+const ChildComponent = React.memo(({ count }) => {
+    console.log("Children re-render");
+
+    function wait(seconds) {
+        var start = new Date();
+        // Empty while loop blocks the main thread until the time passes
+        while ((new Date() - start) / 1000 < seconds);
+        return 1
+    }
+
+    const total = useMemo(() => {
+        wait(2) // thực thi phép tính
+        return 184874384 // trả về kết quả của phép tính
+    }, [])
+
+    return (
+        <div>
+            Children {total}
+            <button>Click</button>
+        </div>
+    )
+})
