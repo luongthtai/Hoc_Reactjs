@@ -19,6 +19,8 @@
  */
 
 import React, { useCallback, useMemo, useState } from "react"
+import styles from './Buoi11.module.css'
+import { Button } from "./assets/stylings"
 
 export default function Buoi11() {
     const [count, setCount] = useState(0)
@@ -32,7 +34,7 @@ export default function Buoi11() {
     // }
 
     return (
-        <div style={{ marginLeft: "50px" }}>
+        <div className={styles['text-red']}>
             <span>{count}</span>
             <ChildComponent count={count} />
 
@@ -58,8 +60,8 @@ const ChildComponent = React.memo(({ count }) => {
     }, [])
 
     return (
-        <div>
-            Children {total}
+        <div className="text-red">
+            <Button>Gửi</Button> {total}
             <button>Click</button>
         </div>
     )

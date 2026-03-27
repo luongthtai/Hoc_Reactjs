@@ -10,6 +10,7 @@ import Buoi9 from "../pages/Buoi9";
 import Buoi11 from "../Buoi11";
 import ProductsPage from "../pages/Buoi11/ProductsPage";
 import CartPage from "../pages/Buoi11/CartPage";
+import Buoi12 from "../Buoi12";
 
 const routes = createBrowserRouter([
     {
@@ -51,6 +52,10 @@ const routes = createBrowserRouter([
     {
         path: "buoi11",
         element: <Buoi11 />
+    },
+    {
+        path: "buoi12",
+        element: <Buoi12 />
     },
     {
         path: "products",
